@@ -25,6 +25,13 @@ val Typography = Typography(
         color = Colors.onSecondary,
         textAlign = TextAlign.Center,
     ),
+    titleMedium = TextStyle(
+        fontSize = 34.sp,
+        fontFamily = FontFamily(Font(R.font.mont)),
+        fontWeight = FontWeight(700),
+        color = Colors.tertiary,
+        textAlign = TextAlign.Center,
+    ),
     labelMedium = TextStyle(
         fontSize = 33.7.sp,
         fontWeight = FontWeight(700),
@@ -38,7 +45,7 @@ val Typography = Typography(
         fontFamily = FontFamily(Font(R.font.gula)),
         color = Colors.tertiary,
         letterSpacing = 0.43.sp
-    )
+    ),
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,

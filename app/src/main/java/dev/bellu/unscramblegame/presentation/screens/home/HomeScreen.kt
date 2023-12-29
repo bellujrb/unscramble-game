@@ -1,18 +1,21 @@
-package dev.bellu.unscramblegame.presentation.screens
+package dev.bellu.unscramblegame.presentation.screens.home
 
+import InputWord
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.bellu.unscramblegame.R
 import dev.bellu.unscramblegame.data.allWords
+import dev.bellu.unscramblegame.presentation.components.InputLetter
 import dev.bellu.unscramblegame.presentation.components.ScrambledWordView
 import dev.bellu.unscramblegame.presentation.theme.Colors
 import dev.bellu.unscramblegame.presentation.theme.Typography
@@ -20,6 +23,31 @@ import dev.bellu.unscramblegame.presentation.theme.UnscrambleGameTheme
 
 @Composable
 fun HomeScreen() {
+
+    val controller = HomeController()
+    var scrambled by remember { mutableStateOf("") }
+    val word = allWords.first()
+
+    LaunchedEffect(key1 = null){
+        word.forEach { letter ->
+            controller.listLetters.add(letter.toString())
+        }
+        controller.listLetters.shuffle()
+        scrambled = controller.listLetters.joinToString("")
+        print(scrambled)
+    }
+
+    var textMock by remember{ mutableStateOf("") }
+    val listMock: List<String> = listOf(
+        "I",
+        "A",
+        "L",
+        "N",
+        "M",
+        "A"
+    )
+
+
     UnscrambleGameTheme {
         Box(
             modifier = Modifier
@@ -67,7 +95,7 @@ fun HomeScreen() {
                                 style = Typography.displaySmall,
                             )
                         }
-                        ScrambledWordView(allWords.first())
+                        ScrambledWordView(word = word, scrambled = scrambled)
                         Box(contentAlignment = Alignment.Center,
                             modifier = Modifier.padding(24.dp)){
                             Text(
@@ -75,6 +103,45 @@ fun HomeScreen() {
                                 style = Typography.titleSmall,
                             )
                         }
+                        InputWord(
+                            label = "",
+                            value = textMock,
+                            onValueChange = {
+                                textMock = it
+                            }
+                        )
+                        Spacer(
+                            modifier = Modifier.height(12.dp)
+                        )
+                        LazyColumn {
+                            item {
+                                LazyRow {
+                                    items(minOf(listMock.size, 5)) { index ->
+                                        InputLetter(
+                                            listMock[index],
+                                            index = index,
+                                            onClick = {
+                                                textMock += listMock[index]
+                                            }
+                                        )
+                                    }
+                                }
+                            }
+                            item {
+                                LazyRow {
+                                    items((listMock.size - 5).coerceAtLeast(0)) { index ->
+                                        InputLetter(
+                                            listMock[index + 5],
+                                            index = index,
+                                            onClick = {
+                                                textMock += listMock[index + 5]
+                                            }
+                                        )
+                                    }
+                                }
+                            }
+                        }
+
                     }
                 }
             }

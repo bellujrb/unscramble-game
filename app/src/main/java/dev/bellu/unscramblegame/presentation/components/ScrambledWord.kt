@@ -14,19 +14,7 @@ import dev.bellu.unscramblegame.presentation.theme.Colors
 import dev.bellu.unscramblegame.presentation.theme.Typography
 
 @Composable
-fun ScrambledWordView(word: String){
-    val controller = ScrambledWordController()
-    var scrambled by remember { mutableStateOf("") }
-
-    LaunchedEffect(key1 = null){
-        word.forEach { letter ->
-            controller.listLetters.add(letter.toString())
-        }
-        controller.listLetters.shuffle()
-        scrambled = controller.listLetters.joinToString("")
-        print(scrambled)
-    }
-
+fun ScrambledWordView(word: String, scrambled: String){
     Box(contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth(0.9f)
@@ -41,8 +29,4 @@ fun ScrambledWordView(word: String){
             style = Typography.labelMedium
         )
     }
-}
-
-class ScrambledWordController{
-    val listLetters: MutableList<String> = mutableListOf()
 }
