@@ -41,5 +41,6 @@ fun InputWord(
         label = { Text(label) },
         colors = colorsTextField,
         keyboardOptions = keyOptions,
-        keyboardActions = keyActions,   )
+        keyboardActions = keyActions,
+    )
 }
