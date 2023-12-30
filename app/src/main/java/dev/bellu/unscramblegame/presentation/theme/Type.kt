@@ -21,6 +21,19 @@ val Typography = Typography(
         textAlign = TextAlign.Center,
         letterSpacing = 0.8.sp,
     ),
+    headlineMedium = TextStyle(
+        fontSize = 24.sp,
+        fontFamily = FontFamily(Font(R.font.mont)),
+        fontWeight = FontWeight(700),
+        color = Colors.onSecondary,
+    ),
+    headlineLarge = TextStyle(
+        fontSize = 36.63.sp,
+        fontFamily = FontFamily(Font(R.font.gula)),
+        fontWeight = FontWeight(400),
+        color = Colors.secondary,
+        letterSpacing = 0.73.sp,
+    ),
     displaySmall = TextStyle(
         fontSize = 28.sp,
         fontWeight = FontWeight(700),
