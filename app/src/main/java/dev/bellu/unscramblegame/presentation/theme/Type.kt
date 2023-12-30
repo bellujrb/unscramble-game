@@ -12,6 +12,15 @@ import androidx.compose.ui.unit.sp
 import dev.bellu.unscramblegame.R
 
 val Typography = Typography(
+    headlineSmall = TextStyle(
+        fontSize = 16.sp,
+        fontFamily = FontFamily(Font(R.font.mont)),
+        fontWeight = FontWeight(600),
+        color = Colors.tertiary,
+
+        textAlign = TextAlign.Center,
+        letterSpacing = 0.8.sp,
+    ),
     displaySmall = TextStyle(
         fontSize = 28.sp,
         fontWeight = FontWeight(700),
@@ -31,6 +40,14 @@ val Typography = Typography(
         fontWeight = FontWeight(700),
         color = Colors.tertiary,
         textAlign = TextAlign.Center,
+    ),
+    labelSmall = TextStyle(
+        fontSize = 16.sp,
+        fontFamily = FontFamily(Font(R.font.mont)),
+        fontWeight = FontWeight(600),
+        color = Colors.onQuaternary,
+        textAlign = TextAlign.Center,
+        letterSpacing = 0.8.sp,
     ),
     labelMedium = TextStyle(
         fontSize = 33.7.sp,

@@ -8,4 +8,6 @@ object Colors{
     val onSecondary = Color(0xFF282828)
     val tertiary = Color(0xFFF7F7F5)
     val onTertiary = Color(0x40000000)
+    val quaternary = Color(0xFFE3E3E3)
+    val onQuaternary = Color(0xFF848383)
 }

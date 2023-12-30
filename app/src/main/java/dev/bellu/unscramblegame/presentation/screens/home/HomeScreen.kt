@@ -1,6 +1,8 @@
 package dev.bellu.unscramblegame.presentation.screens.home
 
+import BigButton
 import InputWord
+import MiniButton
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,25 +30,15 @@ fun HomeScreen() {
     var scrambled by remember { mutableStateOf("") }
     val word = allWords.first()
 
-    LaunchedEffect(key1 = null){
+    LaunchedEffect(key1 = null) {
         word.forEach { letter ->
             controller.listLetters.add(letter.toString())
         }
         controller.listLetters.shuffle()
         scrambled = controller.listLetters.joinToString("")
-        print(scrambled)
     }
 
-    var textMock by remember{ mutableStateOf("") }
-    val listMock: List<String> = listOf(
-        "I",
-        "A",
-        "L",
-        "N",
-        "M",
-        "A"
-    )
-
+    var inputWord by remember { mutableStateOf("") }
 
     UnscrambleGameTheme {
         Box(
@@ -77,27 +69,14 @@ fun HomeScreen() {
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        Box(contentAlignment = Alignment.Center,
-                            modifier = Modifier
-                                .align(Alignment.End)
-                                .padding(24.dp)
-                                .width(40.9.dp)
-                                .height(40.9.dp)
-                                .shadow(
-                                    elevation = 2.9.dp,
-                                    spotColor = Colors.onTertiary,
-                                    ambientColor = Colors.onTertiary
-                                )
-                                .background(color = Colors.tertiary, shape = RoundedCornerShape(size = 36.5.dp))
-                        ){
-                            Text(
-                                "?",
-                                style = Typography.displaySmall,
-                            )
-                        }
+                        Spacer(
+                            modifier = Modifier.height(12.dp)
+                        )
                         ScrambledWordView(word = word, scrambled = scrambled)
-                        Box(contentAlignment = Alignment.Center,
-                            modifier = Modifier.padding(24.dp)){
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier.padding(24.dp)
+                        ) {
                             Text(
                                 stringResource(R.string.app_caption),
                                 style = Typography.titleSmall,
@@ -105,9 +84,9 @@ fun HomeScreen() {
                         }
                         InputWord(
                             label = "",
-                            value = textMock,
+                            value = inputWord,
                             onValueChange = {
-                                textMock = it
+                                inputWord = it
                             }
                         )
                         Spacer(
@@ -116,12 +95,12 @@ fun HomeScreen() {
                         LazyColumn {
                             item {
                                 LazyRow {
-                                    items(minOf(listMock.size, 5)) { index ->
+                                    items(minOf(controller.listLetters.size, 5)) { index ->
                                         InputLetter(
-                                            listMock[index],
+                                            controller.listLetters[index],
                                             index = index,
                                             onClick = {
-                                                textMock += listMock[index]
+                                                inputWord += controller.listLetters[index]
                                             }
                                         )
                                     }
@@ -129,19 +108,43 @@ fun HomeScreen() {
                             }
                             item {
                                 LazyRow {
-                                    items((listMock.size - 5).coerceAtLeast(0)) { index ->
+                                    items((controller.listLetters.size - 5).coerceAtLeast(0)) { index ->
                                         InputLetter(
-                                            listMock[index + 5],
+                                            controller.listLetters[index + 5],
                                             index = index,
                                             onClick = {
-                                                textMock += listMock[index + 5]
+                                                inputWord += controller.listLetters[index + 5]
                                             }
                                         )
                                     }
                                 }
                             }
                         }
-
+                        Spacer(
+                            modifier = Modifier.height(20.dp)
+                        )
+                        Row {
+                            MiniButton(
+                                title = "CLEAR",
+                                onClick = {
+                                    inputWord = ""
+                                }
+                            )
+                            Spacer(
+                                modifier = Modifier.width(20.dp)
+                            )
+                            MiniButton(
+                                title = "SKIP",
+                                onClick = {}
+                            )
+                        }
+                        Spacer(
+                            modifier = Modifier.height(20.dp)
+                        )
+                        BigButton(
+                            title = "SUBMIT",
+                            onClick = {}
+                        )
                     }
                 }
             }
