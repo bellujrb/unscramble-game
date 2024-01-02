@@ -14,7 +14,7 @@ import dev.bellu.unscramblegame.presentation.theme.Colors
 import dev.bellu.unscramblegame.presentation.theme.Typography
 
 @Composable
-fun ScrambledWordView(word: String, scrambled: String){
+fun ScrambledWordView(word: String){
     Box(contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth(0.9f)
@@ -25,7 +25,7 @@ fun ScrambledWordView(word: String, scrambled: String){
         )
     ){
         Text(
-            scrambled,
+            word,
             style = Typography.labelMedium
         )
     }

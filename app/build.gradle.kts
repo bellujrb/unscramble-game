@@ -48,9 +48,10 @@ android {
 
 dependencies {
 
+    implementation("androidx.navigation:navigation-compose:2.7.6")
     val nav_version = "2.5.3"
 
-    // Implementios By Bellu
+    // New implements by Bellu
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
     implementation("androidx.core:core-ktx:1.9.0")

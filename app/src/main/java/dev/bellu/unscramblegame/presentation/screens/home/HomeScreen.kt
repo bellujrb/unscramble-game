@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.bellu.unscramblegame.R
 import dev.bellu.unscramblegame.data.allWords
 import dev.bellu.unscramblegame.presentation.components.DialogEndGame
@@ -29,25 +30,12 @@ import dev.bellu.unscramblegame.presentation.theme.Typography
 import dev.bellu.unscramblegame.presentation.theme.UnscrambleGameTheme
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
 
-    val controller = HomeController()
+    val uiState by viewModel.uiState.collectAsState()
+    val listLetters = viewModel.listLetters
+
     val resultModal = remember { mutableStateOf(false) }
-    var scrambled by remember { mutableStateOf("") }
-    var index = 0
-    var word = ""
-
-    LaunchedEffect(key1 = null) {
-        index = allWords.indices.random()
-        word = allWords[index]
-        word.forEach { letter ->
-            controller.listLetters.add(letter.toString())
-        }
-        controller.listLetters.shuffle()
-        scrambled = controller.listLetters.joinToString("")
-        Log.d("Result Game", word)
-    }
-
     var inputWord by remember { mutableStateOf("") }
 
     UnscrambleGameTheme {
@@ -65,7 +53,7 @@ fun HomeScreen() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .blur(radius = if(resultModal.value) 10.dp else 0.dp)
+                .blur(radius = if (resultModal.value) 10.dp else 0.dp)
                 .background(color = Colors.primary)
         ) {
             Column {
@@ -81,11 +69,13 @@ fun HomeScreen() {
                     )
                 }
                 Box(
-                    modifier = Modifier.fillMaxSize().background(
-                        color = Colors.tertiary, shape = RoundedCornerShape(
-                            topEnd = 50.dp, topStart = 50.dp
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            color = Colors.tertiary, shape = RoundedCornerShape(
+                                topEnd = 50.dp, topStart = 50.dp
+                            )
                         )
-                    )
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -94,7 +84,7 @@ fun HomeScreen() {
                         Spacer(
                             modifier = Modifier.height(12.dp)
                         )
-                        ScrambledWordView(word = word, scrambled = scrambled)
+                        ScrambledWordView(word = uiState.word)
                         Box(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier.padding(24.dp)
@@ -117,12 +107,12 @@ fun HomeScreen() {
                         LazyColumn {
                             item {
                                 LazyRow {
-                                    items(minOf(controller.listLetters.size, 5)) { index ->
+                                    items(minOf(listLetters.size, 5)) { index ->
                                         InputLetter(
-                                            controller.listLetters[index],
+                                            listLetters[index],
                                             index = index,
                                             onClick = {
-                                                inputWord += controller.listLetters[index]
+                                                inputWord += listLetters[index]
                                             }
                                         )
                                     }
@@ -130,12 +120,12 @@ fun HomeScreen() {
                             }
                             item {
                                 LazyRow {
-                                    items((controller.listLetters.size - 5).coerceAtLeast(0)) { index ->
+                                    items((listLetters.size - 5).coerceAtLeast(0)) { index ->
                                         InputLetter(
-                                            controller.listLetters[index + 5],
+                                            listLetters[index + 5],
                                             index = index,
                                             onClick = {
-                                                inputWord += controller.listLetters[index + 5]
+                                                inputWord += listLetters[index + 5]
                                             }
                                         )
                                     }
@@ -165,13 +155,7 @@ fun HomeScreen() {
                         )
                         BigButton(
                             title = "SUBMIT",
-                            onClick = {
-                                controller.playWord(
-                                    word = inputWord,
-                                    index = index
-                                )
-                                resultModal.value = true
-                            }
+                            onClick = {}
                         )
                     }
                 }
