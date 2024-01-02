@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class HomeViewModel : ViewModel() {
 
@@ -20,33 +21,28 @@ class HomeViewModel : ViewModel() {
 
     init {
         randomWord()
-        _uiState.value = uiState.value.copy(scrambled = generateLetters())
-        viewModelScope.launch {
-            uiState.collect { state ->
-                Log.e(
-                    "Debugg",
-                    "${state.word}," +
-                            " ${state.scrambled}, " +
-                            "$listLetters"
-                )
-            }
-        }
     }
 
-    private fun randomWord() {
+    fun randomWord() {
         viewModelScope.launch {
             delay(1000)
-            _uiState.value = uiState.value.copy(word = allWords[_uiState.value.index])
+
+            val indexRandom = Random.nextInt(allWords.size)
+            _uiState.value = uiState.value.copy(
+                index = indexRandom,
+                word = allWords[_uiState.value.index]
+            )
+            shuffleWord()
         }
     }
 
-    private fun generateLetters(): String {
-        viewModelScope.launch {
-            _uiState.value.word.forEach { letter ->
-                listLetters.add(letter.toString())
-            }
+    private fun shuffleWord() {
+        listLetters.clear()
+        allWords[_uiState.value.index].forEach { letter ->
+            listLetters.add(letter.toString())
         }
         listLetters.shuffle()
-        return listLetters.joinToString("")
+        _uiState.value = uiState.value.copy(scrambled = listLetters.joinToString(""))
     }
+
 }

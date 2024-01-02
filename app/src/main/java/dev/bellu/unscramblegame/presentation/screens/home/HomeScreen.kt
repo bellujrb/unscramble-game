@@ -84,7 +84,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
                         Spacer(
                             modifier = Modifier.height(12.dp)
                         )
-                        ScrambledWordView(word = uiState.word)
+                        ScrambledWordView(scrambled = uiState.scrambled)
                         Box(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier.padding(24.dp)
@@ -155,7 +155,9 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
                         )
                         BigButton(
                             title = "SUBMIT",
-                            onClick = {}
+                            onClick = {
+                                viewModel.randomWord()
+                            }
                         )
                     }
                 }
