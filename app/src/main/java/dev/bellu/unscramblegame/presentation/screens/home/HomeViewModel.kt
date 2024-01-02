@@ -18,8 +18,6 @@ class HomeViewModel : ViewModel() {
 
     var listLetters: MutableList<String> = mutableListOf()
 
-    private var resultGame = ""
-
     init {
         randomWord()
         _uiState.value = uiState.value.copy(scrambled = generateLetters())
@@ -50,26 +48,5 @@ class HomeViewModel : ViewModel() {
         }
         listLetters.shuffle()
         return listLetters.joinToString("")
-    }
-
-    fun playWord(word: String, index: Int, newWord: String) {
-        val isSuccess = word == allWords.getOrNull(index)
-
-        resultGame = if (isSuccess) {
-            randomWord()
-            generateLetters()
-            //this.index = allWords.indices.random()
-            "Accept"
-        } else {
-            "Reject"
-        }
-
-        Log.d(
-            "resultGame",
-            "word: $word, " +
-                    "index: $index, " +
-                    "newWord: $newWord, " +
-                    "resultGame: $resultGame"
-        )
     }
 }
