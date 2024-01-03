@@ -23,14 +23,36 @@ class HomeViewModel : ViewModel() {
         randomWord()
     }
 
-    fun randomWord() {
+    fun playGame(inputWord: String) {
+        if (inputWord == _uiState.value.word) {
+            _uiState.value = uiState.value.copy(score = uiState.value.score + 1)
+            randomWord()
+            Log.e("ACTUAL SCORE", uiState.value.score.toString())
+        } else {
+            Log.e("Results", uiState.value.word)
+            if (uiState.value.score >= 1) {
+                _uiState.value = uiState.value.copy(score = uiState.value.score - 1)
+            }
+            Log.e("ACTUAL SCORE", uiState.value.score.toString())
+        }
+    }
+
+    fun skipRound(){
+        if (uiState.value.score >= 1) {
+            _uiState.value = uiState.value.copy(score = uiState.value.score - 1)
+        }
+        randomWord()
+    }
+
+
+    private fun randomWord() {
         viewModelScope.launch {
             delay(1000)
 
             val indexRandom = Random.nextInt(allWords.size)
             _uiState.value = uiState.value.copy(
                 index = indexRandom,
-                word = allWords[_uiState.value.index]
+                word = allWords[indexRandom]
             )
             shuffleWord()
         }

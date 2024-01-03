@@ -138,16 +138,16 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
                         Row {
                             MiniButton(
                                 title = "CLEAR",
-                                onClick = {
-                                    inputWord = ""
-                                }
+                                onClick = { inputWord = "" }
                             )
                             Spacer(
                                 modifier = Modifier.width(20.dp)
                             )
                             MiniButton(
                                 title = "SKIP",
-                                onClick = {}
+                                onClick = {
+                                    viewModel.skipRound()
+                                }
                             )
                         }
                         Spacer(
@@ -156,7 +156,8 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
                         BigButton(
                             title = "SUBMIT",
                             onClick = {
-                                viewModel.randomWord()
+                                viewModel.playGame(inputWord)
+                                inputWord = ""
                             }
                         )
                     }

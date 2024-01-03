@@ -1,4 +1,4 @@
-package dev.bellu.unscramblegame.presentation.screens
+package dev.bellu.unscramblegame.presentation.screens.welcome
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

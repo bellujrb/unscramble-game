@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dev.bellu.unscramblegame.presentation.screens.home.HomeScreen
-import dev.bellu.unscramblegame.presentation.screens.WelcomeScreen
+import dev.bellu.unscramblegame.presentation.screens.welcome.WelcomeScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
