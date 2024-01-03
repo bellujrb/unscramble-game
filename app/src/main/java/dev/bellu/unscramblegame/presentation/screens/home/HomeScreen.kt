@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.bellu.unscramblegame.R
 import dev.bellu.unscramblegame.data.allWords
-import dev.bellu.unscramblegame.presentation.components.DialogEndGame
 import dev.bellu.unscramblegame.presentation.components.InputLetter
 import dev.bellu.unscramblegame.presentation.components.ScrambledWordView
 import dev.bellu.unscramblegame.presentation.theme.Colors
