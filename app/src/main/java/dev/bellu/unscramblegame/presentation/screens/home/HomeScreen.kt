@@ -35,25 +35,12 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     val listLetters = viewModel.listLetters
 
-    val resultModal = remember { mutableStateOf(false) }
     var inputWord by remember { mutableStateOf("") }
 
     UnscrambleGameTheme {
-        when {
-            resultModal.value -> {
-                DialogEndGame(
-                    onDismissRequest = { resultModal.value = false},
-                    onConfirmation = {
-                        resultModal.value = false
-                        println("Confirmation registered")
-                    },
-                )
-            }
-        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .blur(radius = if (resultModal.value) 10.dp else 0.dp)
                 .background(color = Colors.primary)
         ) {
             Column {
