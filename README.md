@@ -11,7 +11,7 @@ Simple guess-the-word game to train viewmodel and state management in Jetpack Co
 ## 📂 Project File Tree
 
 ```
-src
+unscramble-game/app/src
 ├── androidTest/java/dev/bellu/unscramblegame
 │   └── ...
 │        └──ExampleInstrumentedTest.kt
