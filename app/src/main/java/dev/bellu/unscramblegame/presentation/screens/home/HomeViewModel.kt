@@ -64,4 +64,7 @@ class HomeViewModel : ViewModel() {
         _uiState.value = uiState.value.copy(scrambled = listLetters.joinToString(""))
     }
 
+    fun getWord(word: String){
+
+    }
 }

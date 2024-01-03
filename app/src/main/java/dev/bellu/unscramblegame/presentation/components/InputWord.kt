@@ -23,7 +23,7 @@ fun InputWord(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val colorsTextField = TextFieldDefaults.textFieldColors(
-        textColor = Colors.onSecondary
+        focusedTextColor = Colors.onSecondary
     )
     val keyOptions = KeyboardOptions.Default.copy(
         imeAction = ImeAction.None,
