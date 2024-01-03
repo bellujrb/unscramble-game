@@ -25,15 +25,12 @@ class HomeViewModel : ViewModel() {
 
     fun playGame(inputWord: String) {
         if (inputWord == _uiState.value.word) {
-            _uiState.value = uiState.value.copy(score = uiState.value.score + 1)
+            _uiState.value = uiState.value.copy(score = uiState.value.score + 10)
             randomWord()
-            Log.e("ACTUAL SCORE", uiState.value.score.toString())
         } else {
-            Log.e("Results", uiState.value.word)
             if (uiState.value.score >= 1) {
-                _uiState.value = uiState.value.copy(score = uiState.value.score - 1)
+                _uiState.value = uiState.value.copy(score = uiState.value.score - 5)
             }
-            Log.e("ACTUAL SCORE", uiState.value.score.toString())
         }
     }
 

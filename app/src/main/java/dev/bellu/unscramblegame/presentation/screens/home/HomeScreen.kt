@@ -160,6 +160,8 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
                                 inputWord = ""
                             }
                         )
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Text(text = "Score: ${uiState.score}", style = Typography.headlineMedium )
                     }
                 }
             }
